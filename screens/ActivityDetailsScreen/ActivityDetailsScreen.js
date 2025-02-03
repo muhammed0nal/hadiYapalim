@@ -11,6 +11,9 @@ export default function ActivityDetailsScreen({ route }) {
       <Text>{show[0].author}</Text>
       <Text>{show[0].content}</Text>
       <Text>{show[0].title}</Text>
+      <Text>{show[0].author}</Text>
+      <Text>{show[0].content}</Text>
+      <Text>{show[0].title}</Text>
     </SafeAreaView>
   );
 }
