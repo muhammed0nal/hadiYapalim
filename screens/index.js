@@ -1,0 +1,16 @@
+export default SCREENS = {
+  WelcomeScreen: "WelcomeScreen",
+  LoginScreen: "LoginScreen",
+  RegisterScreen: "RegisterScreen",
+  ForgotPassword: "ForgotPassword",
+  ForgotPasswordCode: "ForgotPasswordCode",
+  DrawerNavigator: "DrawerNavigator",
+  MainDrawer: "Main",
+  ProfileScreen: "ProfileScreen",
+  HomeScreen: "HomeScreen",
+  SearchScreen: "SearchScreen",
+  AddPostScreen: "AddPostScreen",
+  MyActivityScreen: "MyActivityScreen",
+  BottomTabNavigator: "BottomTabNavigator",
+  ActivityDetailsScreen: "ActivityDetailsScreen",
+};
