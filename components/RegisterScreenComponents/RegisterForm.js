@@ -193,6 +193,7 @@ export default function RegisterForm({ navigation }) {
               style={[
                 styles.input,
                 touched.password && errors.password && styles.inputError,
+                { paddingRight: scale(50) },
               ]}
               returnKeyType="next"
               onSubmitEditing={() => passwordRef_2.current.focus()}
@@ -224,6 +225,7 @@ export default function RegisterForm({ navigation }) {
               style={[
                 styles.input,
                 touched.password_2 && errors.password_2 && styles.inputError,
+                { paddingRight: scale(50) },
               ]}
               returnKeyType="done"
               onSubmitEditing={handleSubmit}
@@ -309,8 +311,8 @@ const styles = StyleSheet.create({
     borderRadius: moderateScale(5),
     paddingBottom: verticalScale(10),
     paddingTop: verticalScale(10),
-    paddingLeft: scale(10),
-    paddingRight: scale(70),
+    paddingLeft: scale(16),
+    paddingRight: scale(20),
     backgroundColor: Colors.inputBackgroundWhite,
     borderColor: Colors.blue,
     borderWidth: 2,

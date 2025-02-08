@@ -1,4 +1,5 @@
 import {
+  ActivityIndicator,
   FlatList,
   Image,
   Pressable,
@@ -11,24 +12,61 @@ import { useEffect, useState } from "react";
 import { scale, verticalScale, moderateScale } from "react-native-size-matters";
 import { ip } from "../../ip/ip";
 import axios from "axios";
-import { ImageConst } from "../../constants/ImageConst";
 import { Colors } from "../../constants/Colors";
 import { etkinlik } from "../../data/user";
+import { useAuth } from "../../contexts/AuthContext";
 
-export default function ProfileScreen() {
+export default function ProfileScreen({ navigation }) {
   const [userData, setUserData] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [profilePhotoUri, setProfilePhotoUri] = useState();
+  const { onLogout } = useAuth();
 
   useEffect(() => {
     const fetchUserProfile = async () => {
+      setLoading(true);
+      // işin bitince settimoutu kaldır
+      try {
+        const response2 = await axios.get(`${ip}/profile/profilePhoto`);
+        console.log("response2");
+        console.log(response2);
+        const data = await response2.data;
+        console.log("data");
+        console.log(data);
+        setProfilePhotoUri(data.profilePhotoUrl);
+      } catch (error) {
+        console.log(error.response.data.message);
+        console.log(error + " -- " + error.response.data.message);
+      }
+
       try {
         const response = await axios.get(`${ip}/profile/getProfile`);
-        setUserData(response.data); // Gelen veriyi kaydet
+        setUserData(response.data);
+        // profile photo
       } catch (err) {
-        console.log(err);
+        console.log(err + " ---- " + err.response.data.msg);
+        if (err.response.data.msg === "token") {
+          await onLogout();
+          navigation.reset({
+            index: 0,
+            routes: [{ name: "HomeScreen" }],
+          });
+        }
+      } finally {
+        setLoading(false);
       }
     };
+
     fetchUserProfile();
   }, []);
+
+  if (loading) {
+    return (
+      <View style={styles.loadingContainer}>
+        <ActivityIndicator size="large" color={Colors.blue} />
+      </View>
+    );
+  }
 
   return (
     <View>
@@ -36,7 +74,12 @@ export default function ProfileScreen() {
         <>
           <View style={styles.profileInfo}>
             <View style={styles.imgContainer}>
-              <Image source={ImageConst.user} style={styles.image} />
+              <Image
+                source={{
+                  uri: `${profilePhotoUri}`,
+                }}
+                style={styles.image}
+              />
             </View>
             <View style={styles.profileNumbers}>
               <Pressable
@@ -95,8 +138,9 @@ export default function ProfileScreen() {
 
 const styles = StyleSheet.create({
   image: {
-    width: scale(40),
-    height: verticalScale(50),
+    width: moderateScale(70), // Yatay ölçeklendirme
+    height: moderateScale(70), // Dikey ölçeklendirme
+    borderRadius: moderateScale(40), // Yuvarlak yapmak için yarısı kadar olmalı
     resizeMode: "contain",
   },
   profileInfo: {
@@ -119,8 +163,9 @@ const styles = StyleSheet.create({
     borderRadius: scale(5),
     paddingTop: verticalScale(20),
     paddingBottom: verticalScale(20),
-    paddingLeft: scale(30),
+    paddingLeft: scale(15),
     paddingRight: scale(10),
+    marginHorizontal: scale(8),
   },
   imgContainer: {
     gap: scale(25),
@@ -150,5 +195,10 @@ const styles = StyleSheet.create({
   },
   textNumbers: {
     color: Colors.blue,
+  },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
