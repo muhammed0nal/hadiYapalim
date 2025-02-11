@@ -5,7 +5,7 @@ import { jwtDecode } from "jwt-decode"; // jwt-decode kütüphanesini içeri akt
 
 const TOKEN_KEY = process.env.REACT_APP_TOKEN_KEY || "jwt_token";
 const AuthContext = createContext();
-console.log("TOKEN_KEY-frontend", TOKEN_KEY);
+// console.log("TOKEN_KEY-frontend", TOKEN_KEY);
 export const useAuth = () => {
   return useContext(AuthContext);
 };
@@ -18,13 +18,12 @@ export const AuthProvider = ({ children }) => {
     username: null,
   });
 
-  console.log("authState-frontend", authState);
+  // console.log("authState-frontend", authState);
 
   useEffect(() => {
     const loadToken = async () => {
       try {
         const token = await SecureStore.getItemAsync(TOKEN_KEY);
-
         if (token) {
           const decodedToken = jwtDecode(token);
 

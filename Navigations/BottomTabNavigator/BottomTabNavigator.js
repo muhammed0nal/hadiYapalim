@@ -28,20 +28,20 @@ export const BottomTabNavigator = ({ route }) => {
         tabBarShowLabel: false,
         tabBarStyle: {
           position: "absolute",
-          bottom: 25,
-          left: 20,
-          right: 20,
+          bottom: 20,
+          left: 15,
+          right: 15,
           elevation: 0,
-          backgroundColor: "#ffffff",
-          borderRadius: 15,
-          height: 60,
-          shadowColor: Colors.blue,
+          backgroundColor: "#f8f9fa",
+          borderRadius: 20,
+          height: 70,
+          shadowColor: Colors.darkGray,
           shadowOffset: {
             height: 10,
             width: 0,
           },
-          shadowOpacity: 0.25,
-          shadowRadius: 3.5,
+          shadowOpacity: 0.3,
+          shadowRadius: 5,
           elevation: 5,
         },
       }}
@@ -54,8 +54,8 @@ export const BottomTabNavigator = ({ route }) => {
             <View style={{ alignItems: "center" }}>
               <Ionicons
                 name="home"
-                size={size}
-                color={focused ? Colors.blue : Colors.black}
+                size={focused ? size + 5 : size}
+                color={focused ? Colors.blue : Colors.gray}
               />
             </View>
           ),
@@ -69,7 +69,7 @@ export const BottomTabNavigator = ({ route }) => {
             <View style={{ alignItems: "center" }}>
               <Ionicons
                 name="search"
-                size={size}
+                size={focused ? size + 5 : size}
                 color={focused ? Colors.blue : Colors.black}
               />
             </View>
@@ -122,7 +122,7 @@ export const BottomTabNavigator = ({ route }) => {
             <View style={{ alignItems: "center" }}>
               <Ionicons
                 name="list"
-                size={size}
+                size={focused ? size + 5 : size}
                 color={focused ? Colors.blue : Colors.black}
               />
             </View>
@@ -137,7 +137,7 @@ export const BottomTabNavigator = ({ route }) => {
             <View style={{ alignItems: "center" }}>
               <Ionicons
                 name="person"
-                size={size}
+                size={focused ? size + 5 : size}
                 color={focused ? Colors.blue : Colors.black}
               />
             </View>

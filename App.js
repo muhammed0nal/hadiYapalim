@@ -21,6 +21,8 @@ import ForgotPassword from "./screens/LoginScreen/ForgotPassword/ForgotPassword"
 import ForgotPasswordCode from "./screens/LoginScreen/ForgotPassword/ForgotPasswordCode";
 import AddPostScreen from "./screens/AddPostScreen/AddPostScreen";
 import ActivityDetailsScreen from "./screens/ActivityDetailsScreen/ActivityDetailsScreen";
+import axios from "axios";
+import { ProfilePhotoProvider } from "./contexts/profilePhotoUrl";
 
 // Constants
 const Stack = createNativeStackNavigator();
@@ -31,6 +33,11 @@ const stackScreenOptions = {
 const SPLASH_SCREEN_DELAY = 1000;
 
 const App = () => {
+  axios.interceptors.request.use((config) => {
+    // console.log("🔍 Gönderilen İstek Header'ları:", config.headers);
+    return config;
+  });
+
   useEffect(() => {
     const prepareApp = async () => {
       try {
@@ -46,10 +53,12 @@ const App = () => {
 
   return (
     <AuthProvider>
-      <StatusBar style="light" />
-      <SafeAreaView style={styles.root}>
-        <AppLayout />
-      </SafeAreaView>
+      <ProfilePhotoProvider>
+        <StatusBar style="light" />
+        <SafeAreaView style={styles.root}>
+          <AppLayout />
+        </SafeAreaView>
+      </ProfilePhotoProvider>
     </AuthProvider>
   );
 };

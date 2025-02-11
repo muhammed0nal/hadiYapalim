@@ -1,7 +1,6 @@
 import {
   ActivityIndicator,
   FlatList,
-  Image,
   Pressable,
   StyleSheet,
   Text,
@@ -15,29 +14,16 @@ import axios from "axios";
 import { Colors } from "../../constants/Colors";
 import { etkinlik } from "../../data/user";
 import { useAuth } from "../../contexts/AuthContext";
+import ActiveUserImage from "../../components/ActiveUserComponents/ActiveUserImage";
 
 export default function ProfileScreen({ navigation }) {
   const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [profilePhotoUri, setProfilePhotoUri] = useState();
   const { onLogout } = useAuth();
 
   useEffect(() => {
     const fetchUserProfile = async () => {
       setLoading(true);
-      // işin bitince settimoutu kaldır
-      try {
-        const response2 = await axios.get(`${ip}/profile/profilePhoto`);
-        console.log("response2");
-        console.log(response2);
-        const data = await response2.data;
-        console.log("data");
-        console.log(data);
-        setProfilePhotoUri(data.profilePhotoUrl);
-      } catch (error) {
-        console.log(error.response.data.message);
-        console.log(error + " -- " + error.response.data.message);
-      }
 
       try {
         const response = await axios.get(`${ip}/profile/getProfile`);
@@ -74,12 +60,7 @@ export default function ProfileScreen({ navigation }) {
         <>
           <View style={styles.profileInfo}>
             <View style={styles.imgContainer}>
-              <Image
-                source={{
-                  uri: `${profilePhotoUri}`,
-                }}
-                style={styles.image}
-              />
+              <ActiveUserImage style={styles.image} />
             </View>
             <View style={styles.profileNumbers}>
               <Pressable
