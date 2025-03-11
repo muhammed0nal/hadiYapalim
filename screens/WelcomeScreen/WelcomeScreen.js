@@ -23,10 +23,10 @@ export default function WelcomeScreen({ navigation }) {
     <View style={styles.root}>
       <View style={styles.container}>
         <Circle
-          height={342}
-          left={-51}
-          top={-73}
-          width={342}
+          height={verticalScale(342)}
+          left={verticalScale(-150)}
+          top={verticalScale(-73)}
+          width={verticalScale(342)}
           backgroundColor={Colors.blue}
           borderRadius={800}
         ></Circle>
@@ -34,35 +34,40 @@ export default function WelcomeScreen({ navigation }) {
         <Circle
           backgroundColor={Colors.blue}
           borderRadius={800}
-          height={250}
-          right={-42}
-          top={-150}
-          width={250}
+          height={verticalScale(250)}
+          right={verticalScale(-120)}
+          top={verticalScale(-110)}
+          width={verticalScale(250)}
         ></Circle>
       </View>
-      <WelcomeText />
-      <View>
-        <Button
-          borderRadius={moderateScale(4)} // Dinamik ölçeklendirme
-          width={scale(200)} // Yatay ölçeklendirme
-          height={verticalScale(32)} // Dikey ölçeklendirme
-          onPress={goToLoginPageHandler}
-          size={moderateScale(50)}
-          fontSize={moderateScale(20)}
-          title="Giriş Yap"
-          backgroundColor={Colors.blue}
-          textColor={Colors.white}
-        />
-        <Button
-          borderRadius={moderateScale(4)}
-          width={scale(200)}
-          height={verticalScale(26)}
-          onPress={goToRegisterPageHandler}
-          fontSize={moderateScale(14)}
-          title="Üye Ol"
-          backgroundColor={Colors.gray}
-          textColor={Colors.white}
-        />
+      <View style={styles.contentContainer}>
+        <WelcomeText />
+        <View style={styles.buttonContainer}>
+          <Button
+            marginBottom={verticalScale(16)}
+            borderRadius={moderateScale(8)}
+            width={scale(220)}
+            height={verticalScale(45)}
+            onPress={goToLoginPageHandler}
+            size={moderateScale(50)}
+            fontSize={moderateScale(18)}
+            title="Giriş Yap"
+            backgroundColor={Colors.blue}
+            textColor={Colors.white}
+          />
+          <Button
+            borderRadius={moderateScale(8)}
+            width={scale(220)}
+            height={verticalScale(45)}
+            onPress={goToRegisterPageHandler}
+            fontSize={moderateScale(16)}
+            title="Üye Ol"
+            backgroundColor="transparent"
+            textColor={Colors.blue}
+            borderWidth={1}
+            borderColor={Colors.blue}
+          />
+        </View>
       </View>
     </View>
   );
@@ -70,15 +75,29 @@ export default function WelcomeScreen({ navigation }) {
 
 const styles = StyleSheet.create({
   root: {
+    flex: 1,
     alignItems: "center",
+    backgroundColor: Colors.white,
   },
   container: {
     position: "relative",
+    marginBottom: verticalScale(80),
+  },
+  contentContainer: {
+    alignItems: "center",
+    width: "100%",
+    paddingHorizontal: scale(20),
   },
   image: {
-    width: scale(476),
-    height: scale(476),
-    marginTop: -verticalScale(50),
+    zIndex: 330,
+    width: verticalScale(230),
+    height: verticalScale(230),
+    marginTop: verticalScale(50),
     resizeMode: "contain",
+  },
+  buttonContainer: {
+    width: "100%",
+    alignItems: "center",
+    marginTop: verticalScale(30),
   },
 });

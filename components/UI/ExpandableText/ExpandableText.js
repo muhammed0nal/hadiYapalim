@@ -8,12 +8,12 @@ import {
 } from "react-native";
 import { Colors } from "../../../constants/Colors";
 import Hyperlink from "react-native-hyperlink";
+import { verticalScale } from "react-native-size-matters";
 
 const ExpandableText = ({ style, text, maxLines = 3 }) => {
   const [showMore, setShowMore] = useState(false);
   const [isTextTruncated, setIsTextTruncated] = useState(false);
   const [textHeight, setTextHeight] = useState(0);
-  const animatedHeight = useRef(new Animated.Value(0)).current;
 
   const toggleShowMore = () => {
     LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
   showMoreText: {
     color: Colors.black,
     marginTop: 5,
-    fontSize: 16,
+    fontSize: verticalScale(12),
   },
 });
 

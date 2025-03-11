@@ -13,6 +13,7 @@ import { useAuth } from "../../contexts/AuthContext";
 import { moderateScale, scale, verticalScale } from "react-native-size-matters";
 import { ip } from "../../ip/ip";
 import axios from "axios";
+
 export default function LoginForm() {
   const [userFound, setUserFound] = useState(true);
   const [wrongPassword, setWrongPassword] = useState(false);
@@ -22,7 +23,6 @@ export default function LoginForm() {
   const { onLogin, authState } = useAuth();
   const emailorUsernameRef = useRef();
   const passwordRef = useRef();
-  console.log(authState);
 
   const loginHandler = async (values) => {
     setLoginLoader(true);
@@ -57,6 +57,7 @@ export default function LoginForm() {
       console.error("Veri gönderme hatası:", error);
     }
   };
+
   return (
     <Formik
       validationSchema={validationSchemaLogin}
@@ -84,7 +85,8 @@ export default function LoginForm() {
             <ErrorText>{errors.emailorUsername}</ErrorText>
           )}
           {!userFound && <ErrorText>Kullanıcı bulunamadı</ErrorText>}
-          <View style={{ position: "relative", width: "100%" }}>
+
+          <View style={styles.passwordContainer}>
             <TextInputLogin
               ref={passwordRef}
               autoCapitalize="none"
@@ -96,44 +98,38 @@ export default function LoginForm() {
               style={styles.input}
               onSubmitEditing={handleSubmit}
             />
-            {touched.password && errors.password && (
-              <ErrorText>{errors.password}</ErrorText>
-            )}
-            {wrongPassword && <ErrorText>Şifreniz yanlış</ErrorText>}
-            {emptyFields && <ErrorText>Lütfen bilgilerinizi giriniz</ErrorText>}
             <Icon
-              stylePressable={{
-                position: "absolute",
-                top: "50%",
-                right: scale(15),
-                transform: [{ translateY: -20 }],
-              }}
+              stylePressable={styles.eyeIcon}
               onPress={() => setShowPassword((prev) => !prev)}
               size={24}
               color={Colors.blue}
               name={showPassword ? "eye-outline" : "eye-off-outline"}
             />
           </View>
+
+          {touched.password && errors.password && (
+            <ErrorText>{errors.password}</ErrorText>
+          )}
+          {wrongPassword && <ErrorText>Şifreniz yanlış</ErrorText>}
+          {emptyFields && <ErrorText>Lütfen bilgilerinizi giriniz</ErrorText>}
+
           <Button
-            width={scale(100)}
+            width={scale(220)}
             backgroundColor={Colors.blue}
-            height={scale(28)}
-            borderRadius={moderateScale(4)}
+            height={verticalScale(48)}
+            borderRadius={moderateScale(8)}
             loading={loginLoader}
             onPress={handleSubmit}
             textColor={Colors.white}
-            fontSize={moderateScale(14)}
+            fontSize={moderateScale(16)}
             title={
               loginLoader ? (
-                <ActivityIndicator
-                  size={30}
-                  color={Colors.inputBackgroundWhite}
-                />
+                <ActivityIndicator size={24} color={Colors.white} />
               ) : (
                 "Giriş Yap"
               )
             }
-            color={Colors.blue}
+            marginTop={verticalScale(20)}
           />
         </View>
       )}
@@ -142,19 +138,34 @@ export default function LoginForm() {
 }
 
 const styles = StyleSheet.create({
-  formView: { alignItems: "center" },
+  formView: {
+    alignItems: "center",
+    width: "100%",
+  },
   input: {
-    width: scale(250),
-    height: verticalScale(40),
-    borderRadius: moderateScale(5),
-    paddingBottom: verticalScale(10),
-    paddingTop: verticalScale(10),
-    paddingLeft: scale(10),
-    paddingRight: scale(10),
+    width: scale(280),
+    height: verticalScale(50),
+    borderRadius: moderateScale(8),
+    paddingVertical: verticalScale(12),
+    paddingHorizontal: scale(16),
     backgroundColor: Colors.inputBackgroundWhite,
     borderColor: Colors.blue,
-    borderWidth: 2,
+    borderWidth: 1.5,
     color: Colors.black,
-    marginBottom: verticalScale(10),
+    marginBottom: verticalScale(16),
+    fontSize: moderateScale(16),
+  },
+  passwordContainer: {
+    position: "relative",
+    width: "100%",
+    alignItems: "center",
+  },
+  eyeIcon: {
+    position: "absolute",
+    top: "50%",
+    right: scale(45),
+    transform: [{ translateY: -verticalScale(25) }],
+    zIndex: 10,
+    padding: moderateScale(8),
   },
 });

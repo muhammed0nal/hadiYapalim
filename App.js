@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
-import { StyleSheet, SafeAreaView } from "react-native";
+import { StyleSheet, SafeAreaView, Text } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { Ionicons } from "@expo/vector-icons";
 import * as SplashScreen from "expo-splash-screen";
-
+import axios from "axios";
 // Navigation
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -21,9 +21,13 @@ import ForgotPassword from "./screens/LoginScreen/ForgotPassword/ForgotPassword"
 import ForgotPasswordCode from "./screens/LoginScreen/ForgotPassword/ForgotPasswordCode";
 import AddPostScreen from "./screens/AddPostScreen/AddPostScreen";
 import ActivityDetailsScreen from "./screens/ActivityDetailsScreen/ActivityDetailsScreen";
-import axios from "axios";
 import { ProfilePhotoProvider } from "./contexts/profilePhotoUrl";
-
+import OtherUsersProfileScreen from "./screens/OtherUsersProfileScreen/OtherUsersProfileScreen";
+import SettingsScreen from "./screens/SettingsScreen/SettingsScreen";
+import EditProfileScreen from "./screens/SettingsScreen/EditProfileScreen";
+import ChangeProfilePhotoScreen from "./screens/SettingsScreen/ChangeProfilePhotoScreen";
+import FollowerScreen from "./screens/FollowerScreen/FollowerScreen";
+import FollowedScreen from "./screens/FollowedScreen/FollowedScreen";
 // Constants
 const Stack = createNativeStackNavigator();
 const stackScreenOptions = {
@@ -65,23 +69,25 @@ const App = () => {
 
 const AppLayout = () => {
   const { authState } = useAuth();
-
+  console.log(authState?.authenticated);
   return (
-    <NavigationContainer>
-      <Stack.Navigator screenOptions={stackScreenOptions}>
-        {!authState?.authenticated ? (
-          <Stack.Screen
-            name="UnauthenticatedStack"
-            component={UnauthenticatedStack}
-          />
-        ) : (
-          <Stack.Screen
-            name="AuthenticatedStack"
-            component={AuthenticatedStack}
-          />
-        )}
-      </Stack.Navigator>
-    </NavigationContainer>
+    <>
+      <NavigationContainer>
+        <Stack.Navigator screenOptions={stackScreenOptions}>
+          {!authState?.authenticated && authState?.authenticated !== null ? (
+            <Stack.Screen
+              name="UnauthenticatedStack"
+              component={UnauthenticatedStack}
+            />
+          ) : (
+            <Stack.Screen
+              name="AuthenticatedStack"
+              component={AuthenticatedStack}
+            />
+          )}
+        </Stack.Navigator>
+      </NavigationContainer>
+    </>
   );
 };
 
@@ -125,6 +131,54 @@ const AuthenticatedStack = () => {
       <Stack.Screen
         name={SCREENS.ActivityDetailsScreen}
         component={ActivityDetailsScreen}
+      />
+      <Stack.Screen
+        options={{
+          gestureEnabled: true,
+          animation: "slide_from_right",
+        }}
+        name={SCREENS.OtherUsersProfileScreen}
+        component={OtherUsersProfileScreen}
+      />
+      <Stack.Screen
+        options={{
+          gestureEnabled: true,
+          animation: "fade_from_bottom",
+        }}
+        name={SCREENS.SettingsScreen}
+        component={SettingsScreen}
+      />
+      <Stack.Screen
+        options={{
+          gestureEnabled: true,
+          animation: "slide_from_bottom",
+        }}
+        name={SCREENS.EditProfileScreen}
+        component={EditProfileScreen}
+      />
+      <Stack.Screen
+        options={{
+          gestureEnabled: true,
+          animation: "slide_from_bottom",
+        }}
+        name={SCREENS.ChangeProfilePhotoScreen}
+        component={ChangeProfilePhotoScreen}
+      />
+      <Stack.Screen
+        options={{
+          gestureEnabled: true,
+          animation: "slide_from_bottom",
+        }}
+        name={SCREENS.FollowerScreen}
+        component={FollowerScreen}
+      />
+      <Stack.Screen
+        options={{
+          gestureEnabled: true,
+          animation: "slide_from_bottom",
+        }}
+        name={SCREENS.FollowedScreen}
+        component={FollowedScreen}
       />
     </Stack.Navigator>
   );

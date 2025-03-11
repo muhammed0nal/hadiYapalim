@@ -23,7 +23,10 @@ export default function LoginScreen({ navigation }) {
   return (
     <>
       <StatusBar style="dark" />
-      <KeyboardAwareScrollView style={styles.keyboardAwareScrollView}>
+      <KeyboardAwareScrollView
+        style={styles.keyboardAwareScrollView}
+        contentContainerStyle={styles.scrollViewContent}
+      >
         <SafeAreaView style={styles.root}>
           <View style={styles.outContainer}>
             <View style={styles.container}>
@@ -37,19 +40,15 @@ export default function LoginScreen({ navigation }) {
               <Image style={styles.image} source={ImageConst.logo} />
             </View>
             <View style={styles.textContainer}>
-              <Text
-                style={[
-                  styles.text,
-                  { fontSize: moderateScale(20), color: Colors.blue },
-                ]}
-              >
-                Tekrardan Hoşgeldin.
-              </Text>
+              <Text style={styles.welcomeText}>Tekrardan Hoşgeldin.</Text>
             </View>
             <LoginForm />
             <Pressable
               onPress={() => goToForgotPageHandler(navigation)}
-              style={({ pressed }) => pressed && styles.pressed}
+              style={({ pressed }) => [
+                styles.forgotPasswordContainer,
+                pressed && styles.pressed,
+              ]}
             >
               <Text style={styles.forgotPassword}>Şifremi unuttum</Text>
             </Pressable>
@@ -75,11 +74,19 @@ export default function LoginScreen({ navigation }) {
 const styles = StyleSheet.create({
   keyboardAwareScrollView: {
     flex: 1,
+    backgroundColor: Colors.white,
+  },
+  scrollViewContent: {
+    flexGrow: 1,
   },
   root: {
     flex: 1,
   },
-  outContainer: { alignItems: "center" },
+  outContainer: {
+    alignItems: "center",
+    flex: 1,
+    paddingBottom: verticalScale(20),
+  },
   container: {
     width: "100%",
     flexDirection: "column",
@@ -90,37 +97,48 @@ const styles = StyleSheet.create({
     marginLeft: scale(25),
   },
   image: {
-    marginTop: verticalScale(-80),
-    width: scale(300),
-    height: verticalScale(360),
+    marginTop: verticalScale(20),
+    width: verticalScale(130),
+    height: verticalScale(130),
     alignSelf: "center",
     resizeMode: "contain",
-  },
-  text: {
-    textAlign: "center",
   },
   textContainer: {
     alignItems: "center",
     marginBottom: verticalScale(30),
-    marginTop: verticalScale(-50),
+    marginTop: verticalScale(20),
+  },
+  welcomeText: {
+    fontSize: moderateScale(22),
+    color: Colors.blue,
+    fontWeight: "600",
+    textAlign: "center",
+  },
+  forgotPasswordContainer: {
+    marginTop: verticalScale(16),
+    marginBottom: verticalScale(16),
+    padding: moderateScale(8),
   },
   forgotPassword: {
-    marginTop: verticalScale(10),
-    marginBottom: verticalScale(10),
     fontSize: moderateScale(16),
+    color: Colors.blue,
   },
   registrationButtonContainer: {
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
-    gap: 2,
+    gap: 4,
+    marginTop: verticalScale(20),
+    padding: moderateScale(8),
   },
   registrationText_1: {
     fontSize: moderateScale(15),
+    color: Colors.black,
   },
   registrationText_2: {
     fontSize: moderateScale(16),
     fontWeight: "bold",
+    color: Colors.blue,
   },
   pressed: {
     opacity: 0.5,

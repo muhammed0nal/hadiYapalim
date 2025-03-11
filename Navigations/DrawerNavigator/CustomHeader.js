@@ -6,6 +6,7 @@ import { ImageConst } from "../../constants/ImageConst";
 import { StatusBar } from "expo-status-bar";
 import { useAuth } from "../../contexts/AuthContext";
 import { Colors } from "../../constants/Colors";
+import { scale, verticalScale } from "react-native-size-matters";
 
 export const CustomHeader = ({ isProfileScreen }) => {
   const navigation = useNavigation();
@@ -18,26 +19,28 @@ export const CustomHeader = ({ isProfileScreen }) => {
         style={{
           flexDirection: "row",
           alignItems: "center",
-          padding: 10,
-          height: 100,
+          paddingTop: verticalScale(20),
+          padding: verticalScale(10),
+          height: verticalScale(80),
           backgroundColor: "#fff",
           shadowColor: "#000",
           shadowOffset: {
             width: 0,
             height: 4,
           },
-          shadowOpacity: 0.2,
-          shadowRadius: 1.41,
-          elevation: 0.4,
           position: "relative",
         }}
       >
         <Icon
-          stylePressable={{ flex: 1, alignSelf: "flex-start", marginTop: 20 }}
+          stylePressable={{
+            flex: 1,
+            alignSelf: "flex-start",
+            marginTop: verticalScale(20),
+          }}
           color="#0000FF"
           name="menu"
           style={{ marginLeft: 10 }}
-          size={28}
+          size={verticalScale(24)}
           onPress={navigation.openDrawer}
         />
 
@@ -50,7 +53,7 @@ export const CustomHeader = ({ isProfileScreen }) => {
           {isProfileScreen ? (
             <Text
               style={{
-                fontSize: 20,
+                fontSize: verticalScale(16),
                 borderBottomColor: Colors.blue,
                 borderBottomWidth: 3,
               }}
@@ -59,7 +62,7 @@ export const CustomHeader = ({ isProfileScreen }) => {
             </Text>
           ) : (
             <Image
-              style={{ width: 160, height: 160 }} // Logo boyutlarını ihtiyaca göre ayarlayın
+              style={{ width: verticalScale(80), height: verticalScale(80) }} // Logo boyutlarını ihtiyaca göre ayarlayın
               source={ImageConst.logo}
             />
           )}

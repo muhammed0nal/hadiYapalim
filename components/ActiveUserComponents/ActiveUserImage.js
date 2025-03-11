@@ -4,7 +4,7 @@ import { useUserImage } from "../../contexts/profilePhotoUrl";
 
 export default function ActiveUserImage({ style }) {
   const { profilePhotoUrl } = useUserImage();
-
+  // console.log(profilePhotoUrl);
   return (
     <Image
       key={profilePhotoUrl}

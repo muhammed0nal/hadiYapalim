@@ -88,7 +88,7 @@ export default function RegisterForm({ navigation }) {
                 <ErrorText>{errors.name}</ErrorText>
               )}
             </View>
-            <View>
+            <View style={styles.surnameView}>
               <TextInputLogin
                 ref={surnameRef}
                 selectionColor={Colors.blue}
@@ -96,7 +96,7 @@ export default function RegisterForm({ navigation }) {
                 placeholder="Soyad"
                 style={[
                   [styles.input, styles.surname],
-                  touched.name && errors.name && styles.inputError,
+                  touched.surname && errors.surname && styles.inputError,
                 ]}
                 value={values.surname}
                 onChangeText={handleChange("surname")}
@@ -246,41 +246,33 @@ export default function RegisterForm({ navigation }) {
           {touched.password_2 && errors.password_2 && (
             <ErrorText>{errors.password_2}</ErrorText>
           )}
-          <View
-            style={{
-              flexDirection: "row",
-              marginBottom: verticalScale(10),
-              gap: scale(2),
-              alignItems: "center",
-            }}
-          >
+          <View style={styles.checkboxContainer}>
             <Checkbox
               style={styles.checkbox}
               value={values.isChecked}
               onValueChange={(value) => setFieldValue("isChecked", value)}
               color={values.isChecked ? Colors.blue : undefined}
             />
-            <IlluminationText
-              touched={touched.isChecked}
-              errors={errors.isChecked}
-            />
-            <Text> onaylıyorum.</Text>
+            <View style={styles.checkboxTextContainer}>
+              <IlluminationText
+                touched={touched.isChecked}
+                errors={errors.isChecked}
+              />
+              <Text style={styles.checkboxText}> onaylıyorum.</Text>
+            </View>
           </View>
           <Button
-            width={scale(100)}
+            width={scale(140)}
             backgroundColor={Colors.blue}
-            height={scale(26)}
-            borderRadius={moderateScale(4)}
+            height={verticalScale(40)}
+            borderRadius={moderateScale(6)}
             loading={registerLoader}
             onPress={handleSubmit}
             textColor={Colors.white}
-            fontSize={moderateScale(14)}
+            fontSize={moderateScale(15)}
             title={
               registerLoader ? (
-                <ActivityIndicator
-                  size={30}
-                  color={Colors.inputBackgroundWhite}
-                />
+                <ActivityIndicator size={24} color={Colors.white} />
               ) : (
                 "Üye Ol"
               )
@@ -294,9 +286,21 @@ export default function RegisterForm({ navigation }) {
 }
 
 const styles = StyleSheet.create({
+  formView: {
+    alignItems: "center",
+    width: "100%",
+  },
   name_surname: {
     flexDirection: "row",
     gap: scale(10),
+    width: "100%",
+    justifyContent: "center",
+  },
+  nameView: {
+    width: scale(105),
+  },
+  surnameView: {
+    width: scale(105),
   },
   name: {
     width: scale(105),
@@ -304,18 +308,15 @@ const styles = StyleSheet.create({
   surname: {
     width: scale(105),
   },
-  formView: { alignItems: "center" },
   input: {
     width: scale(220),
     height: verticalScale(40),
-    borderRadius: moderateScale(5),
-    paddingBottom: verticalScale(10),
-    paddingTop: verticalScale(10),
-    paddingLeft: scale(16),
-    paddingRight: scale(20),
+    borderRadius: moderateScale(6),
+    paddingVertical: verticalScale(10),
+    paddingHorizontal: scale(16),
     backgroundColor: Colors.inputBackgroundWhite,
     borderColor: Colors.blue,
-    borderWidth: 2,
+    borderWidth: 1.5,
     color: Colors.black,
     marginBottom: verticalScale(10),
   },
@@ -328,9 +329,9 @@ const styles = StyleSheet.create({
   pickerContainer: {
     width: scale(220),
     height: verticalScale(40),
-    borderRadius: moderateScale(5),
+    borderRadius: moderateScale(6),
     borderColor: Colors.blue,
-    borderWidth: 2,
+    borderWidth: 1.5,
     marginBottom: verticalScale(10),
     justifyContent: "center",
     backgroundColor: Colors.inputBackgroundWhite,
@@ -339,9 +340,25 @@ const styles = StyleSheet.create({
     width: "99%",
     height: "55%",
     color: Colors.gray,
-    opacity: 0.5,
+    opacity: 0.6,
   },
   inputError: {
     borderColor: "red",
+  },
+  checkboxContainer: {
+    flexDirection: "row",
+    marginBottom: verticalScale(15),
+    marginTop: verticalScale(5),
+    gap: scale(5),
+    alignItems: "center",
+    width: scale(220),
+  },
+  checkboxTextContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  checkboxText: {
+    fontSize: moderateScale(12),
+    color: Colors.black,
   },
 });

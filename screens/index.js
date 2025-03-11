@@ -13,4 +13,10 @@ export default SCREENS = {
   MyActivityScreen: "MyActivityScreen",
   BottomTabNavigator: "BottomTabNavigator",
   ActivityDetailsScreen: "ActivityDetailsScreen",
+  OtherUsersProfileScreen: "OtherUsersProfileScreen",
+  SettingsScreen: "SettingsScreen",
+  EditProfileScreen: "EditProfileScreen",
+  ChangeProfilePhotoScreen: "ChangeProfilePhotoScreen",
+  FollowerScreen: "FollowerScreen",
+  FollowedScreen: "FollowedScreen",
 };

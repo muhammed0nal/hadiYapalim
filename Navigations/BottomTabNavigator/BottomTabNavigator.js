@@ -11,7 +11,7 @@ import MyActivityScreen from "../../screens/MyActivityScreen/MyActivityScreen.js
 //react
 import { Ionicons } from "@expo/vector-icons";
 import { Colors } from "../../constants/Colors";
-import { View } from "react-native";
+import { View, StyleSheet } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
 // component
@@ -26,24 +26,7 @@ export const BottomTabNavigator = ({ route }) => {
       screenOptions={{
         headerShown: false,
         tabBarShowLabel: false,
-        tabBarStyle: {
-          position: "absolute",
-          bottom: 20,
-          left: 15,
-          right: 15,
-          elevation: 0,
-          backgroundColor: "#f8f9fa",
-          borderRadius: 20,
-          height: 70,
-          shadowColor: Colors.darkGray,
-          shadowOffset: {
-            height: 10,
-            width: 0,
-          },
-          shadowOpacity: 0.3,
-          shadowRadius: 5,
-          elevation: 5,
-        },
+        tabBarStyle: styles.tabBar,
       }}
     >
       <Tab.Screen
@@ -51,10 +34,10 @@ export const BottomTabNavigator = ({ route }) => {
         component={HomeScreen}
         options={{
           tabBarIcon: ({ focused, color, size }) => (
-            <View style={{ alignItems: "center" }}>
+            <View style={styles.iconContainer}>
               <Ionicons
                 name="home"
-                size={focused ? size + 5 : size}
+                size={focused ? size + 2 : size}
                 color={focused ? Colors.blue : Colors.gray}
               />
             </View>
@@ -66,11 +49,11 @@ export const BottomTabNavigator = ({ route }) => {
         component={SearchScreen}
         options={{
           tabBarIcon: ({ focused, color, size }) => (
-            <View style={{ alignItems: "center" }}>
+            <View style={styles.iconContainer}>
               <Ionicons
                 name="search"
-                size={focused ? size + 5 : size}
-                color={focused ? Colors.blue : Colors.black}
+                size={focused ? size + 2 : size}
+                color={focused ? Colors.blue : Colors.gray}
               />
             </View>
           ),
@@ -84,25 +67,17 @@ export const BottomTabNavigator = ({ route }) => {
             <Button
               onPress={() => navigation.navigate("AddPostScreen")}
               backgroundColor={Colors.blue}
-              width={verticalScale(50)}
-              height={verticalScale(50)}
+              width={verticalScale(45)}
+              height={verticalScale(45)}
               borderRadius={moderateScale(100)}
               textColor={Colors.white}
-              style={{
-                borderWidth: moderateScale(2),
-                borderColor: "#000",
-                position: "absolute",
-                top: verticalScale(-30),
-                marginBottom: verticalScale(40),
-                flex: 1,
-                alignItems: "center",
-              }}
-              title={<Ionicons name="add" size={verticalScale(24)} />}
+              style={styles.addButton}
+              title={<Ionicons name="add" size={verticalScale(22)} />}
             />
           ),
           presentation: "modal",
           tabBarButton: (props) => (
-            <View {...props} style={{ alignItems: "center" }}>
+            <View {...props} style={styles.addButtonContainer}>
               {props.children}
             </View>
           ),
@@ -119,11 +94,11 @@ export const BottomTabNavigator = ({ route }) => {
         component={MyActivityScreen}
         options={{
           tabBarIcon: ({ focused, color, size }) => (
-            <View style={{ alignItems: "center" }}>
+            <View style={styles.iconContainer}>
               <Ionicons
                 name="list"
-                size={focused ? size + 5 : size}
-                color={focused ? Colors.blue : Colors.black}
+                size={focused ? size + 2 : size}
+                color={focused ? Colors.blue : Colors.gray}
               />
             </View>
           ),
@@ -134,11 +109,11 @@ export const BottomTabNavigator = ({ route }) => {
         component={ProfileScreen}
         options={{
           tabBarIcon: ({ focused, color, size }) => (
-            <View style={{ alignItems: "center" }}>
+            <View style={styles.iconContainer}>
               <Ionicons
                 name="person"
-                size={focused ? size + 5 : size}
-                color={focused ? Colors.blue : Colors.black}
+                size={focused ? size + 2 : size}
+                color={focused ? Colors.blue : Colors.gray}
               />
             </View>
           ),
@@ -147,3 +122,46 @@ export const BottomTabNavigator = ({ route }) => {
     </Tab.Navigator>
   );
 };
+
+const styles = StyleSheet.create({
+  tabBar: {
+    position: "absolute",
+    bottom: 20,
+    left: 15,
+    right: 15,
+    elevation: 0,
+    backgroundColor: "#ffffff",
+    borderRadius: 20,
+    height: scale(60),
+    shadowColor: "#000",
+    shadowOffset: {
+      height: 5,
+      width: 0,
+    },
+    shadowOpacity: 0.15,
+    shadowRadius: 8,
+    elevation: 5,
+    paddingHorizontal: scale(5),
+  },
+  iconContainer: {
+    alignItems: "center",
+    justifyContent: "center",
+    padding: moderateScale(5),
+  },
+  addButtonContainer: {
+    alignItems: "center",
+  },
+  addButton: {
+    borderWidth: 0,
+    position: "absolute",
+    top: verticalScale(-22),
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+  },
+});

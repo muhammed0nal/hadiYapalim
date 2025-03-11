@@ -35,15 +35,7 @@ export default function LoginScreen({ navigation }) {
               <Image style={styles.image} source={ImageConst.logo} />
             </View>
             <View style={styles.textContainer}>
-              <Text
-                style={{
-                  fontSize: moderateScale(20),
-                  color: Colors.blue,
-                  textAlign: "center",
-                }}
-              >
-                Aramıza Hoşgeldin.
-              </Text>
+              <Text style={styles.welcomeText}>Aramıza Hoşgeldin.</Text>
             </View>
             <RegisterForm navigation={navigation} />
             <View style={styles.registrationButtonContainer}>
@@ -68,11 +60,15 @@ export default function LoginScreen({ navigation }) {
 const styles = StyleSheet.create({
   keyboardAwareScrollView: {
     flex: 1,
+    backgroundColor: "#fff",
   },
   root: {
     flex: 1,
   },
-  outContainer: { alignItems: "center" },
+  outContainer: {
+    alignItems: "center",
+    paddingHorizontal: scale(10),
+  },
   container: {
     width: "100%",
     flexDirection: "column",
@@ -83,54 +79,38 @@ const styles = StyleSheet.create({
     marginLeft: scale(25),
   },
   image: {
-    marginTop: verticalScale(-70),
-    width: scale(242),
-    height: verticalScale(242),
+    marginTop: verticalScale(-20),
+    width: verticalScale(120),
+    marginBottom: verticalScale(60),
+    height: verticalScale(120),
     alignSelf: "center",
     resizeMode: "contain",
-  },
-  name_surname: {
-    flexDirection: "row",
-    gap: scale(10),
-  },
-  name: {
-    width: scale(105),
-  },
-  surname: {
-    width: scale(105),
   },
   textContainer: {
     alignItems: "center",
     marginBottom: verticalScale(30),
     marginTop: verticalScale(-70),
   },
-  formView: { alignItems: "center" },
-  input: {
-    width: scale(220),
-    height: verticalScale(40),
-    borderRadius: moderateScale(5),
-    paddingBottom: verticalScale(10),
-    paddingTop: verticalScale(10),
-    paddingLeft: scale(10),
-    paddingRight: scale(70),
-    backgroundColor: Colors.inputBackgroundWhite,
-    borderColor: Colors.blue,
-    borderWidth: 2,
-    color: Colors.black,
-    marginBottom: verticalScale(10),
+  welcomeText: {
+    fontSize: moderateScale(20),
+    color: Colors.blue,
+    fontWeight: "600",
   },
   registrationButtonContainer: {
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
     gap: scale(2),
+    marginTop: verticalScale(10),
   },
   registrationText_1: {
-    fontSize: scale(10),
+    fontSize: scale(12),
+    color: Colors.gray,
   },
   registrationText_2: {
-    fontSize: scale(10),
+    fontSize: scale(12),
     fontWeight: "bold",
+    color: Colors.blue,
   },
   pressed: {
     opacity: 0.5,

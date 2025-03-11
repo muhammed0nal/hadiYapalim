@@ -13,6 +13,8 @@ export default function Button({
   textColor,
   width,
   borderRadius,
+  marginBottom,
+  fontWeight,
 }) {
   return (
     <Pressable
@@ -26,7 +28,7 @@ export default function Button({
                 borderRadius: borderRadius,
                 alignItems: "center",
                 justifyContent: "center",
-                marginBottom: 10,
+                marginBottom: marginBottom,
                 height: height,
                 backgroundColor: backgroundColor,
               },
@@ -39,7 +41,7 @@ export default function Button({
                 borderRadius: borderRadius,
                 alignItems: "center",
                 justifyContent: "center",
-                marginBottom: 10,
+                marginBottom: marginBottom,
                 height: height,
                 backgroundColor: backgroundColor,
               },
@@ -50,6 +52,7 @@ export default function Button({
       <Text
         style={[
           {
+            fontWeight: fontWeight,
             fontSize: fontSize,
             color: textColor,
           },
