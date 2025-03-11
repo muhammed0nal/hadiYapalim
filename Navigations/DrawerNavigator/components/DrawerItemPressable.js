@@ -23,6 +23,7 @@ export default function DrawerItemPressable({
               marginLeft: 20,
               marginRight: 20,
               opacity: 0.6,
+              backgroundColor: backgroundColor,
             }
           : {
               backgroundColor: backgroundColor,

@@ -1,22 +1,23 @@
-import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Colors } from "../../constants/Colors";
-import { Image, Pressable, Text } from "react-native";
+import { Pressable, Text, View } from "react-native";
 import { DrawerContentScrollView } from "@react-navigation/drawer";
 import { Ionicons } from "@expo/vector-icons";
-import { ImageConst } from "../../constants/ImageConst";
 import DrawerItemPressable from "./components/DrawerItemPressable";
 import SCREENS from "../../screens/index";
 import { useAuth } from "../../contexts/AuthContext";
+import { verticalScale } from "react-native-size-matters";
+import ActiveUserImage from "../../components/ActiveUserComponents/ActiveUserImage";
 
 export const CustomDrawer = (props) => {
   const { navigation, activeScreen } = props;
-  const { bottom } = useSafeAreaInsets();
   const { onLogout } = useAuth();
   return (
-    <>
+    <View style={{ flex: 1 }}>
       <DrawerContentScrollView
         {...props}
-        style={{ backgroundColor: Colors.inputBackgroundWhite }}
+        style={{
+          backgroundColor: Colors.inputBackgroundWhite,
+        }}
       >
         <Pressable
           style={({ pressed }) =>
@@ -26,8 +27,19 @@ export const CustomDrawer = (props) => {
           }
           onPress={() => navigation.navigate("ProfileScreen")}
         >
-          <Image source={ImageConst.user} style={{ width: 80, height: 80 }} />
-          <Text style={{ marginTop: 20 }}>Muhammed Onal</Text>
+          <ActiveUserImage
+            style={{
+              width: verticalScale(105),
+              height: verticalScale(105),
+              borderRadius: verticalScale(55),
+              resizeMode: "cover",
+              borderWidth: 1,
+              borderColor: Colors.blue,
+            }}
+          />
+          <Text style={{ marginTop: 20, fontSize: 18, fontWeight: "bold" }}>
+            Muhammed Onal
+          </Text>
         </Pressable>
         <DrawerItemPressable
           iconName="home"
@@ -40,7 +52,6 @@ export const CustomDrawer = (props) => {
           textColor={
             activeScreen === SCREENS.HomeScreen ? Colors.white : Colors.blue
           }
-          b
           backgroundColor={
             activeScreen === SCREENS.HomeScreen
               ? Colors.blue
@@ -58,7 +69,6 @@ export const CustomDrawer = (props) => {
           textColor={
             activeScreen === SCREENS.ProfileScreen ? Colors.white : Colors.blue
           }
-          b
           backgroundColor={
             activeScreen === SCREENS.ProfileScreen
               ? Colors.blue
@@ -67,21 +77,15 @@ export const CustomDrawer = (props) => {
         />
         <DrawerItemPressable
           iconName="settings"
-          iconColor={
-            activeScreen === SCREENS.ProfileScreen ? Colors.white : Colors.blue
-          }
-          onPress={() => navigation.navigate(SCREENS.ProfileScreen)}
+          iconColor={Colors.blue}
+          onPress={() => {
+            navigation.navigate(SCREENS.SettingsScreen);
+            navigation.closeDrawer();
+          }}
           iconSize={24}
           text="Ayarlar"
-          textColor={
-            activeScreen === SCREENS.ProfileScreen ? Colors.white : Colors.blue
-          }
-          b
-          backgroundColor={
-            activeScreen === SCREENS.ProfileScreen
-              ? Colors.blue
-              : Colors.inputBackgroundWhite
-          }
+          textColor={Colors.blue}
+          backgroundColor={Colors.inputBackgroundWhite}
         />
       </DrawerContentScrollView>
       <Pressable
@@ -96,9 +100,12 @@ export const CustomDrawer = (props) => {
                 borderRadius: 5,
                 marginLeft: 20,
                 marginRight: 20,
-                marginBottom: bottom + 10,
-                opacity: 0.6,
+                marginBottom: 10,
                 width: 120,
+                position: "absolute",
+                bottom: verticalScale(10),
+                alignSelf: "center",
+                backgroundColor: Colors.red,
               }
             : {
                 flexDirection: "row",
@@ -107,17 +114,25 @@ export const CustomDrawer = (props) => {
                 borderRadius: 5,
                 marginLeft: 20,
                 marginRight: 20,
-                marginBottom: bottom + 10,
+                marginBottom: 10,
                 width: 120,
+                position: "absolute",
+                bottom: verticalScale(10),
+                alignSelf: "center",
+                backgroundColor: Colors.red,
               }
         }
-        label={"Ana Ekran"}
-        labelStyle={{ color: "red" }}
-        contentContainerStyle={{ alignItems: "flex-start", paddingLeft: 0 }}
       >
-        <Ionicons name="exit" color="red" size={24} style={{ padding: 10 }} />
-        <Text style={{ color: "red", fontSize: 14 }}>Çıkış Yap</Text>
+        <Ionicons
+          name="exit"
+          color={Colors.inputBackgroundWhite}
+          size={24}
+          style={{ padding: 10 }}
+        />
+        <Text style={{ color: Colors.inputBackgroundWhite, fontSize: 14 }}>
+          Çıkış Yap
+        </Text>
       </Pressable>
-    </>
+    </View>
   );
 };
